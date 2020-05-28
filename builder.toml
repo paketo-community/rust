@@ -1,0 +1,35 @@
+description = "A sample Builder for using Rust related CNBs"
+
+[[buildpacks]]
+  id = "com.mikusa.rust-dist"
+  uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.1/rust-dist-v0.0.1.tgz"
+  version = "0.0.1"
+
+[[buildpacks]]
+  id = "com.mikusa.rust-cargo"
+  uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.1/rust-cargo-v0.0.1.tgz"
+  version = "0.0.1"
+
+[[order]]
+
+group = [
+    { id = "com.mikusa.rust-dist", version="0.0.1"},
+    { id = "com.mikusa.rust-cargo", version="0.0.1"},
+]
+
+[stack]
+  id = "io.buildpacks.stacks.bionic"
+  build-image = "gcr.io/paketo-buildpacks/build:base-cnb"
+  run-image = "gcr.io/paketo-buildpacks/run:base-cnb"
+
+# Swap the stack if you want more packages
+# [stack]
+#   id = "io.buildpacks.stacks.bionic"
+#   build-image = "gcr.io/paketo-buildpacks/build:full-cnb-cf"
+#   run-image = "gcr.io/paketo-buildpacks/run:full-cnb-cf"
+
+# Swap the stack if you want less packages
+# [stack]
+#   id = "io.buildpacks.stacks.bionic"
+#   build-image = "gcr.io/paketo-buildpacks/build:tiny-cnb"
+#   run-image = "gcr.io/paketo-buildpacks/run:tiny-cnb"
