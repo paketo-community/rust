@@ -2,8 +2,8 @@
 
 The Rust Cloud Native Buildpack provides a set of collaborating buildpacks that enable the building of a Rust-based application. These buildpacks include:
 
-    Rust Dist CNB
-    Rust Cargo CNB
+    [Rust Dist CNB](https://github.com/dmikusa/rust-dist-cnb)
+    [Rust Cargo CNB](https://github.com/dmikusa/rust-cargo-cnb)
 
 ## tl;dr
 
