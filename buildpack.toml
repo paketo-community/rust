@@ -3,7 +3,7 @@ api = "0.2"
 [buildpack]
   id = "com.mikusa.rust"
   name = "Rust Build Pack"
-  version = "0.0.1"
+  version = "0.0.2"
   homepage = "https://github.com/dmikusa/rust-cnb"
 
 [metadata]
@@ -12,27 +12,27 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-dist"
-    sha256 = "98bb6327a75c6f8310b6d5b73cdfdee370cb8e8486c12481a794c2876708e67c"
-    source = "https://github.com/dmikusa/rust-dist-cnb/archive/v0.0.1.tar.gz"
-    source_sha256 = "8c8d43e63685a414c73785b40d4ae7d89089ba21adfd47abd395d63bf8ca543a"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.1/rust-dist-v0.0.1.tgz"
-    version = "0.0.1"
+    version = "0.0.2"
+    uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.2/rust-dist-v0.0.2.tgz"
+    sha256 = "704fcceec9fd4df07fe84b2db2e86e65330f6a9548f6e23a8eb58734bc4c0f09"
+    source = "https://github.com/dmikusa/rust-dist-cnb/archive/v0.0.2.tar.gz"
+    source_sha256 = "b6e0394ea30749c679205f0413432e9cc8337a5799bca7284706a45d2163bb59"
+    stacks = ["io.paketo.stacks.tiny", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-cargo"
+    version = "0.0.1"
+    uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.1/rust-cargo-v0.0.1.tgz"
     sha256 = "726905e23c156ff450117ea13cd421dcdb6db226a46665034ae1da7d24b4d87e"
     source = "https://github.com/dmikusa/rust-cargo-cnb/archive/v0.0.1.tar.gz"
     source_sha256 = "a4d1c19e6c3b89eccccd0397c5d74cf80a7850246a8d71b6fba0454c47f22c50"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.1/rust-cargo-v0.0.1.tgz"
-    version = "0.0.1"
+    stacks = ["io.paketo.stacks.tiny", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
 
 [[order]]
 
   [[order.group]]
     id = "com.mikusa.rust-dist"
-    version="0.0.1"
+    version="0.0.2"
 
   [[order.group]]
     id = "com.mikusa.rust-cargo"

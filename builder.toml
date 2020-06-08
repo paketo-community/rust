@@ -2,8 +2,8 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "com.mikusa.rust-dist"
-  uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.1/rust-dist-v0.0.1.tgz"
-  version = "0.0.1"
+  uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.2/rust-dist-v0.0.2.tgz"
+  version = "0.0.2"
 
 [[buildpacks]]
   id = "com.mikusa.rust-cargo"
@@ -13,7 +13,7 @@ description = "A sample Builder for using Rust related CNBs"
 [[order]]
 
 group = [
-    { id = "com.mikusa.rust-dist", version="0.0.1"},
+    { id = "com.mikusa.rust-dist", version="0.0.2"},
     { id = "com.mikusa.rust-cargo", version="0.0.1"},
 ]
 
