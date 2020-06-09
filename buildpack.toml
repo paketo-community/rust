@@ -3,7 +3,7 @@ api = "0.2"
 [buildpack]
   id = "com.mikusa.rust"
   name = "Rust Build Pack"
-  version = "0.0.2"
+  version = "0.0.3"
   homepage = "https://github.com/dmikusa/rust-cnb"
 
 [metadata]
@@ -21,11 +21,11 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-cargo"
-    version = "0.0.1"
-    uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.1/rust-cargo-v0.0.1.tgz"
-    sha256 = "726905e23c156ff450117ea13cd421dcdb6db226a46665034ae1da7d24b4d87e"
-    source = "https://github.com/dmikusa/rust-cargo-cnb/archive/v0.0.1.tar.gz"
-    source_sha256 = "a4d1c19e6c3b89eccccd0397c5d74cf80a7850246a8d71b6fba0454c47f22c50"
+    version = "0.0.2"
+    uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.2/rust-cargo-v0.0.2.tgz"
+    sha256 = "4a5bd69163b858499d087cfc1b32f0ea4f8f7031b2fb17c1ef8d76bbc4d677ae"
+    source = "https://github.com/dmikusa/rust-cargo-cnb/archive/v0.0.2.tar.gz"
+    source_sha256 = "c31008d42861c62818622d8463211eab32cbc51cd2bd43730e0781bb334730f7"
     stacks = ["io.paketo.stacks.tiny", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
 
 [[order]]
@@ -36,4 +36,4 @@ api = "0.2"
 
   [[order.group]]
     id = "com.mikusa.rust-cargo"
-    version="0.0.1"
+    version="0.0.2"
