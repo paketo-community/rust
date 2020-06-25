@@ -131,7 +131,7 @@ function buildpackage::toml::write() {
   echo "-> Generating package config in ${BUILD_DIR}/package.toml..."
 
   yj -tj < "${ROOT_DIR}/buildpack.toml" \
-    | jq -r '.metadata.dependencies[] | select(.id != "lifecycle") | {uri: .uri }' \
+    | jq -r '.metadata.dependencies[] | select(.id != "lifecycle") | {uri: .uri, image: .image}' \
     | jq -s --arg uri "${BUILD_DIR}/buildpack.tgz" '. | {buildpack: {uri: $uri}, dependencies: .}' \
     | yj -jt \
     > "${BUILD_DIR}/package.toml"
