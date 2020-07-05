@@ -1,0 +1,11 @@
+[buildpack]
+uri = "build/buildpack.tgz"
+
+[[dependencies]]
+image = "dmikusa/rust-dist:v0.0.3"
+
+[[dependencies]]
+image = "dmikusa/rust-cargo:v0.0.2"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/procfile:1.3.8"

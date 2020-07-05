@@ -2,13 +2,11 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "com.mikusa.rust-dist"
-  uri = "https://github.com/dmikusa/rust-dist-cnb/releases/download/v0.0.2/rust-dist-v0.0.2.tgz"
-  version = "0.0.2"
+  image = "dmikusa/rust-dist:v0.0.3"
 
 [[buildpacks]]
   id = "com.mikusa.rust-cargo"
-  uri = "https://github.com/dmikusa/rust-cargo-cnb/releases/download/v0.0.2/rust-cargo-v0.0.2.tgz"
-  version = "0.0.2"
+  image = "dmikusa/rust-cargo:v0.0.2"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
@@ -17,7 +15,7 @@ description = "A sample Builder for using Rust related CNBs"
 [[order]]
 
 group = [
-    { id = "com.mikusa.rust-dist", version="0.0.2"},
+    { id = "com.mikusa.rust-dist", version="0.0.3"},
     { id = "com.mikusa.rust-cargo", version="0.0.2"},
     { id = "paketo-buildpacks/procfile", version="1.3.8", optional=true},
 ]
