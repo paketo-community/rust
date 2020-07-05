@@ -26,10 +26,24 @@ This is the same builder that's published [to Docker Hub](https://hub.docker.com
 
 Also included in this repo is a `buildpack.toml` that defines the Rust meta buildpack. It allows you to reference all of the Rust related CNBs in one convenient way & know that the order is set correctly.
 
-To build your own just run: `./scripts/package.sh --version <version>`, for example `./scripts/package.sh --version v0.0.1` (there must be a git tag for the version specified). After this runs, look in the `./build/` directory. It'll have a tgz and cnb file which can be used with `pack build <image-name> -b ./build/buildpackage.cnb`.
+To build, run the following:
 
-If you don't want to build, a pre-built build package is available under the releases section. This is the same as building the meta buildpack as stated in the previous paragraph.
+```bash
+export VERSION=v0.0.X
+git checkout $VERSION
+mkdir -p build
+tar czf build/buildpack.tgz buildpack.toml
+pack package-buildpack build/rust-$VERSION.cnb --package-config package.toml --format file
+pack package-buildpack dmikusa/rust --package-config package.toml --format image
+```
 
-You can also build this meta buildpack and publish it as an image by running `pack package-buildpack <your-name>/rust --package-config build/package.toml --format image` (`./build/` must exist, if not run the `package.sh` command from the previous paragraph). You can then `pack build -b <your-name>/rust@<version>`. You can `docker tag` and `docker push` to your registry of choice as well.
+That will leave you with three things:
+- The file `build/buildpack.tgz` which is the raw buildpack. Not totally useful, but required for `pack package-buildpack`.
+- The file `build/rust-$VERSION.cnb` which can be consumed by `pack build`. Ex: `pack build -b build/rust-$VERSION.cnb`.
+- A docker image called `dmikusa/rust`. You can then `pack build -b <your-name>/rust@<version>`. You can `docker tag` and `docker push` to your registry of choice as well.
 
-If you don't want to do that, you can use the image from [Docker Hub](https://hub.docker.com/repository/docker/dmikusa/rust).
+If you don't want to build:
+
+1. A pre-built build package is attached to every release under the [releases section of this repo](https://github.com/dmikusa/rust-cnb/releases). This is the same as the `.cnb` file you'd get if you build.
+
+2. A pre-built docker image is available from [Docker Hub](https://hub.docker.com/repository/docker/dmikusa/rust). This is the same as what you'd get if you built a docker image with the previous instructions.
