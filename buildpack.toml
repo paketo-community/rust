@@ -3,7 +3,7 @@ api = "0.2"
 [buildpack]
   id = "com.mikusa.rust"
   name = "Rust Build Pack"
-  version = "0.0.6"
+  version = "0.0.7"
   homepage = "https://github.com/dmikusa/rust-cnb"
 
 [metadata]
@@ -12,27 +12,27 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-dist"
-    image = "dmikusa/rust-dist:v0.0.4"
+    image = "dmikusa/rust-dist:v0.0.5"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-cargo"
-    image = "dmikusa/rust-cargo:v0.0.2"
+    image = "dmikusa/rust-cargo:v0.0.3"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/procfile"
-    image = "gcr.io/paketo-buildpacks/procfile:2.0.2"
+    image = "gcr.io/paketo-buildpacks/procfile:2.0.3"
 
 [[order]]
 
   [[order.group]]
     id = "com.mikusa.rust-dist"
-    version="0.0.4"
+    version="0.0.5"
 
   [[order.group]]
     id = "com.mikusa.rust-cargo"
-    version="0.0.2"
+    version="0.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
-    version="2.0.2"
+    version="2.0.3"
     optional = true
