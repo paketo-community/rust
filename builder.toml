@@ -2,22 +2,22 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "com.mikusa.rust-dist"
-  image = "dmikusa/rust-dist:v0.0.5"
+  uri = "docker://dmikusa/rust-dist:v0.0.6"
 
 [[buildpacks]]
   id = "com.mikusa.rust-cargo"
-  image = "dmikusa/rust-cargo:v0.0.3"
+  uri = "docker://dmikusa/rust-cargo:v0.0.3"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
-  image = "gcr.io/paketo-buildpacks/procfile:2.0.3"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
 
 [[order]]
 
 group = [
-    { id = "com.mikusa.rust-dist", version="0.0.5"},
+    { id = "com.mikusa.rust-dist", version="0.0.6"},
     { id = "com.mikusa.rust-cargo", version="0.0.3"},
-    { id = "paketo-buildpacks/procfile", version="2.0.3", optional=true},
+    { id = "paketo-buildpacks/procfile", version="3.0.0", optional=true},
 ]
 
 [stack]
@@ -33,6 +33,6 @@ group = [
 
 # Swap the stack if you want less packages
 # [stack]
-#   id = "io.buildpacks.stacks.bionic"
+#   id = "io.paketo.stacks.tiny"
 #   build-image = "gcr.io/paketo-buildpacks/build:tiny-cnb"
 #   run-image = "gcr.io/paketo-buildpacks/run:tiny-cnb"
