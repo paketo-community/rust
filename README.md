@@ -9,7 +9,7 @@ The Rust Cloud Native Buildpack provides a set of collaborating buildpacks that 
 
 You can build your apps with either of these commands:
 
-- `pack build <image-name> -b dmikusa/rust`
+- `pack build <image-name> -b docker.io/dmikusa/rust`
 - `pack build <image-name> --builder dmikusa/rust-builder`
 
 ## What's Included
