@@ -2,7 +2,7 @@
 uri = "build/buildpack.tgz"
 
 [[dependencies]]
-uri = "docker://dmikusa/rust-dist:v0.0.6"
+uri = "docker://dmikusa/rust-dist:v0.0.7"
 
 [[dependencies]]
 uri = "docker://dmikusa/rust-cargo:v0.0.3"

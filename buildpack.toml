@@ -3,7 +3,7 @@ api = "0.2"
 [buildpack]
   id = "com.mikusa.rust"
   name = "Rust Build Pack"
-  version = "0.0.8"
+  version = "0.0.9"
   homepage = "https://github.com/dmikusa/rust-cnb"
 
 [metadata]
@@ -12,7 +12,7 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-dist"
-    uri = "docker://dmikusa/rust-dist:v0.0.6"
+    uri = "docker://dmikusa/rust-dist:v0.0.7"
 
   [[metadata.dependencies]]
     id = "com.mikusa.rust-cargo"
@@ -26,7 +26,7 @@ api = "0.2"
 
   [[order.group]]
     id = "com.mikusa.rust-dist"
-    version="0.0.6"
+    version="0.0.7"
 
   [[order.group]]
     id = "com.mikusa.rust-cargo"
