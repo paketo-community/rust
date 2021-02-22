@@ -20,7 +20,7 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/procfile"
-    url = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
+    url = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"
 
 [[order]]
 
@@ -34,5 +34,5 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
-    version="3.0.0"
+    version="4.0.0"
     optional = true

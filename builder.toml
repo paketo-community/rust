@@ -10,14 +10,14 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"
 
 [[order]]
 
 group = [
     { id = "paketo-community/rust-dist", version="0.0.7"},
     { id = "paketo-community/cargo-install", version="0.0.3"},
-    { id = "paketo-buildpacks/procfile", version="3.0.0", optional=true},
+    { id = "paketo-buildpacks/procfile", version="4.0.0", optional=true},
 ]
 
 [stack]

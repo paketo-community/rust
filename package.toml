@@ -9,4 +9,4 @@ uri = "docker://paketocommunity/rust-dist:v0.0.7"
 uri = "docker://paketocommunity/cargo-install:v0.0.3"
 
 [[dependencies]]
-uri = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
+uri = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"
