@@ -1,10 +1,10 @@
 api = "0.2"
 
 [buildpack]
+  homepage = "https://github.com/dmikusa/rust-cnb"
   id = "com.mikusa.rust"
   name = "Rust Build Pack"
   version = "0.0.9"
-  homepage = "https://github.com/dmikusa/rust-cnb"
 
 [metadata]
   dependency_deprecation_dates = []
@@ -26,13 +26,13 @@ api = "0.2"
 
   [[order.group]]
     id = "com.mikusa.rust-dist"
-    version="0.0.7"
+    version = "0.0.7"
 
   [[order.group]]
     id = "com.mikusa.rust-cargo"
-    version="0.0.3"
+    version = "0.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
-    version="3.0.0"
     optional = true
+    version = "4.0.0"
