@@ -1,10 +1,10 @@
 api = "0.2"
 
 [buildpack]
-  id = "com.mikusa.rust"
+  id = "paketo-community/rust"
   name = "Rust Build Pack"
   version = "0.0.9"
-  homepage = "https://github.com/dmikusa/rust-cnb"
+  homepage = "https://github.com/paketo-community/rust"
 
 [metadata]
   dependency_deprecation_dates = []
