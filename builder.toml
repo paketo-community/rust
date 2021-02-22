@@ -2,11 +2,11 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-community/rust-dist"
-  uri = "docker://dmikusa/rust-dist:v0.0.7"
+  uri = "docker://paketocommunity/rust-dist:v0.0.7"
 
 [[buildpacks]]
   id = "paketo-community/cargo-install"
-  uri = "docker://dmikusa/rust-cargo:v0.0.3"
+  uri = "docker://paketocommunity/rust-cargo:v0.0.3"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
