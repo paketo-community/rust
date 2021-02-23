@@ -1,38 +1,38 @@
 api = "0.2"
 
 [buildpack]
-  homepage = "https://github.com/dmikusa/rust-cnb"
-  id = "com.mikusa.rust"
+  id = "paketo-community/rust"
   name = "Rust Build Pack"
   version = "0.0.9"
+  homepage = "https://github.com/paketo-community/rust"
 
 [metadata]
   dependency_deprecation_dates = []
   include_files = ["buildpack.toml"]
 
   [[metadata.dependencies]]
-    id = "com.mikusa.rust-dist"
-    uri = "docker://dmikusa/rust-dist:v0.0.7"
+    id = "paketo-community/rust-dist"
+    uri = "docker://paketocommunity/rust-dist:v0.0.7"
 
   [[metadata.dependencies]]
-    id = "com.mikusa.rust-cargo"
-    url = "docker://dmikusa/rust-cargo:v0.0.3"
+    id = "paketo-community/cargo-install"
+    url = "docker://paketocommunity/rust-cargo:v0.0.3"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/procfile"
-    url = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
+    url = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"
 
 [[order]]
 
   [[order.group]]
-    id = "com.mikusa.rust-dist"
-    version = "0.0.7"
+    id = "paketo-community/rust-dist"
+    version="0.0.7"
 
   [[order.group]]
-    id = "com.mikusa.rust-cargo"
-    version = "0.0.3"
+    id = "paketo-community/cargo-install"
+    version="0.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
+    version="4.0.0"
     optional = true
-    version = "4.0.0"
