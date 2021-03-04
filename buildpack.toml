@@ -12,11 +12,11 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketocommunity/rust-dist"
-    uri = "docker://paketocommunity/rust-dist:v0.0.7"
+    uri = "docker://paketocommunity/rust-dist:0.0.7"
 
   [[metadata.dependencies]]
     id = "paketocommunity/cargo-install"
-    url = "docker://paketocommunity/rust-cargo:v0.0.3"
+    url = "docker://paketocommunity/rust-cargo:0.0.3"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/procfile"
