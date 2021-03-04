@@ -1,4 +1,4 @@
-api = "0.2"
+api = "0.4"
 
 [buildpack]
   homepage = "https://github.com/paketo-community/rust"
@@ -7,20 +7,7 @@ api = "0.2"
   version = "0.0.9"
 
 [metadata]
-  dependency_deprecation_dates = []
   include_files = ["buildpack.toml"]
-
-  [[metadata.dependencies]]
-    id = "paketocommunity/rust-dist"
-    uri = "docker://paketocommunity/rust-dist:0.0.7"
-
-  [[metadata.dependencies]]
-    id = "paketocommunity/cargo-install"
-    url = "docker://paketocommunity/rust-cargo:0.0.3"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/procfile"
-    url = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"
 
 [[order]]
 
