@@ -16,11 +16,11 @@ You can build your apps with either of these commands:
 
 ### A Builder
 
-In this repo is a sample `builder.toml` that you can use to create your own builder. To create the builder, just run `pack create-builder <your-name>/rust-builder --builder-config builder.toml`. For example, `pack create-builder paketocommunity/rust-builder --builder-config builder.toml`.
+In this repo is a sample `builder.toml` that you can use to create your own builder. To create the builder, just run `pack builder create <your-name>/rust-builder --config builder.toml`. For example, `pack builder create paketocommunity/rust-builder --config builder.toml`.
 
 You can then build an app with it using `pack build <image-name> --builder <your-name>/rust-builder`.
 
-This is the same builder that's published [to Docker Hub](https://hub.docker.com/repository/docker/paketocommunity/rust-builder). You can build against that with `pack build <image-name> --builder paketocommunity/rust-builder`.
+~This is the same builder that's published [to Docker Hub](https://hub.docker.com/repository/docker/paketocommunity/rust-builder). You can build against that with `pack build <image-name> --builder paketocommunity/rust-builder`.~ Sorry, this is not happening at the moment. We hope to have it back once the process has been automated. In the meantime, you'll need to use the instructions above to create your own builder image.
 
 ### A Meta Buildpack
 
