@@ -3,10 +3,10 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/rust-dist:0.0.11"
+  uri = "docker://docker.io/paketocommunity/rust-dist:0.0.12"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/cargo-install:0.0.7"
+  uri = "docker://docker.io/paketocommunity/cargo-install:0.0.8"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:4.2.2"
