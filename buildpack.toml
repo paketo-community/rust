@@ -12,11 +12,11 @@ api = "0.4"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
-    version = "0.0.11"
+    version = "0.0.12"
 
   [[order.group]]
     id = "paketo-community/cargo-install"
-    version = "0.0.7"
+    version = "0.0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
