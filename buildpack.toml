@@ -1,23 +1,18 @@
 api = "0.5"
 
 [buildpack]
+  description = "A Cloud Native Buildpack with an order definition suitable for Rust applications"
   homepage = "https://github.com/paketo-community/rust"
   id = "paketo-community/rust"
+  keywords = ["rust", "composite"]
   name = "Rust Build Pack"
-  description = "A Cloud Native Buildpack with an order definition suitable for Rust applications"
-  keywords    = ["rust", "composite"]
 
   [[buildpack.licenses]]
     type = "Apache-2.0"
-    uri  = "https://github.com/paketo-buildpacks/rust/blob/main/LICENSE"
+    uri = "https://github.com/paketo-buildpacks/rust/blob/main/LICENSE"
 
 [metadata]
-  include-files = [
-    "LICENSE",
-    "NOTICE",
-    "README.md",
-    "buildpack.toml",
-  ]
+  include-files = ["LICENSE", "NOTICE", "README.md", "buildpack.toml"]
 
 [[order]]
 
