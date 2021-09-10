@@ -9,4 +9,4 @@
   uri = "docker://docker.io/paketocommunity/cargo-install:0.0.9"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.1"
