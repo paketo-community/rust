@@ -18,7 +18,7 @@ api = "0.5"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
-    version = "0.0.13"
+    version = "1.0.1"
 
   [[order.group]]
     id = "paketo-community/cargo-install"
