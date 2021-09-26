@@ -1,0 +1,135 @@
+name: Tests
+"on":
+    pull_request: {}
+    push:
+        branches:
+            - main
+jobs:
+    create-package:
+        name: Create Package Test
+        runs-on:
+            - ubuntu-latest
+        steps:
+            - if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
+              name: Docker login docker.io
+              uses: docker/login-action@v1
+              with:
+                password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
+                registry: docker.io
+                username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
+            - uses: actions/setup-go@v2
+              with:
+                go-version: "1.16"
+            - name: Install create-package
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
+            - name: Install pack
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                echo "Installing pack ${PACK_VERSION}"
+
+                mkdir -p "${HOME}"/bin
+                echo "${HOME}/bin" >> "${GITHUB_PATH}"
+
+                curl \
+                  --location \
+                  --show-error \
+                  --silent \
+                  "https://github.com/buildpacks/pack/releases/download/v${PACK_VERSION}/pack-v${PACK_VERSION}-linux.tgz" \
+                | tar -C "${HOME}"/bin -xz pack
+              env:
+                PACK_VERSION: 0.18.1
+            - if: ${{ false }}
+              name: Enable pack Experimental
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                echo "Enabling pack experimental features"
+
+                mkdir -p "${HOME}"/.pack
+                echo "experimental = true" >> "${HOME}"/.pack/config.toml
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v2
+              with:
+                key: ${{ runner.os }}-go-${{ hashFiles('**/buildpack.toml', '**/package.toml') }}
+                path: |-
+                    ${{ env.HOME }}/.pack
+                    ${{ env.HOME }}/carton-cache
+                restore-keys: ${{ runner.os }}-go-
+            - id: version
+              name: Compute Version
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                if [[ ${GITHUB_REF} =~ refs/tags/v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+                  VERSION=${BASH_REMATCH[1]}
+                elif [[ ${GITHUB_REF} =~ refs/heads/(.+) ]]; then
+                  VERSION=${BASH_REMATCH[1]}
+                else
+                  VERSION=$(git rev-parse --short HEAD)
+                fi
+
+                echo "::set-output name=version::${VERSION}"
+                echo "Selected ${VERSION} from
+                  * ref: ${GITHUB_REF}
+                  * sha: ${GITHUB_SHA}
+                "
+            - name: Create Package
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                if [[ "${INCLUDE_DEPENDENCIES}" == "true" ]]; then
+                  create-package \
+                    --cache-location "${HOME}"/carton-cache \
+                    --destination "${HOME}"/buildpack \
+                    --include-dependencies \
+                    --version "${VERSION}"
+                else
+                  create-package \
+                    --destination "${HOME}"/buildpack \
+                    --version "${VERSION}"
+                fi
+
+                [[ -e package.toml ]] && cp package.toml "${HOME}"/package.toml
+                printf '[buildpack]\nuri = "%s"\n\n[platform]\nos = "%s"\n' "${HOME}"/buildpack "${OS}" >> "${HOME}"/package.toml
+              env:
+                INCLUDE_DEPENDENCIES: "true"
+                OS: linux
+                VERSION: ${{ steps.version.outputs.version }}
+            - name: Package Buildpack
+              run: |
+                #!/usr/bin/env bash
+
+                set -euo pipefail
+
+                if [[ -n "${PUBLISH+x}" ]]; then
+                  pack package-buildpack \
+                    "${PACKAGE}:${VERSION}" \
+                    --config "${HOME}"/package.toml \
+                    --publish
+
+                  crane tag "${PACKAGE}:${VERSION}" latest
+                  echo "::set-output name=digest::$(crane digest "${PACKAGE}:${VERSION}")"
+                else
+                  pack package-buildpack \
+                    "${PACKAGE}:${VERSION}" \
+                    --config "${HOME}"/package.toml \
+                    --format "${FORMAT}"
+                fi
+              env:
+                FORMAT: image
+                PACKAGE: test
+                VERSION: ${{ steps.version.outputs.version }}

@@ -1,30 +1,31 @@
-api = "0.5"
+api = "0.6"
 
 [buildpack]
-  description = "A Cloud Native Buildpack with an order definition suitable for Rust applications"
-  homepage = "https://github.com/paketo-community/rust"
-  id = "paketo-community/rust"
-  keywords = ["rust", "composite"]
-  name = "Rust Build Pack"
+id = "paketo-community/rust"
+name = "Rust Build Pack"
+version = "{{.version}}"
+homepage = "https://github.com/paketo-community/rust"
+description = "A Cloud Native Buildpack with an order definition suitable for Rust applications"
+keywords = ["rust", "composite"]
 
-  [[buildpack.licenses]]
-    type = "Apache-2.0"
-    uri = "https://github.com/paketo-buildpacks/rust/blob/main/LICENSE"
-
-[metadata]
-  include-files = ["LICENSE", "NOTICE", "README.md", "buildpack.toml"]
+[[buildpack.licenses]]
+type = "Apache-2.0"
+uri = "https://github.com/paketo-buildpacks/rust/blob/main/LICENSE"
 
 [[order]]
+group = [
 
-  [[order.group]]
-    id = "paketo-community/rust-dist"
-    version = "1.1.0"
+### Order is strictly enforced
+  { id = "paketo-community/rustup",     version="1.0.0" },
+  { id = "paketo-community/rust-dist",  version="1.1.0" },
+  { id = "paketo-community/cargo",      version="0.0.12" },
+  { id = "paketo-buildpacks/procfile",  version="4.3.1", optional = true },
+]
 
-  [[order.group]]
-    id = "paketo-community/cargo-install"
-    version = "0.0.9"
-
-  [[order.group]]
-    id = "paketo-buildpacks/procfile"
-    optional = true
-    version = "4.3.1"
+[metadata]
+include-files = [
+  "LICENSE", 
+  "NOTICE", 
+  "README.md", 
+  "buildpack.toml"
+]
