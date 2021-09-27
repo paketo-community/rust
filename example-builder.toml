@@ -1,28 +1,19 @@
 description = "A sample Builder for using Rust related CNBs"
 
-[[buildpacks]]
-  id = "paketo-community/rustup"
-  uri = "docker://paketocommunity/rustup:1.0.0"
-
-[[buildpacks]]
-  id = "paketo-community/rust-dist"
-  uri = "docker://paketocommunity/rust-dist:1.1.0"
-
-[[buildpacks]]
-  id = "paketo-community/cargo"
-  uri = "docker://paketocommunity/cargo:0.0.12"
-
-[[buildpacks]]
-  id = "paketo-buildpacks/procfile"
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.1"
+buildpacks = [
+  { id = "paketo-community/rustup",    uri = "docker://docker.io/paketocommunity/rustup:1.0.0" },
+  { id = "paketo-community/rust-dist", uri = "docker://docker.io/paketocommunity/rust-dist:1.1.0" },
+  { id = "paketo-community/cargo",     uri = "docker://docker.io/paketocommunity/cargo:0.0.12" },
+  { id = "paketo-buildpacks/procfile", uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.1" },
+]
 
 [[order]]
 
 group = [
-    { id = "paketo-community/rustup", version="1.0.0"},
-    { id = "paketo-community/rust-dist", version="1.1.0"},
-    { id = "paketo-community/cargo", version="0.0.12"},
-    { id = "paketo-buildpacks/procfile", version="4.3.1", optional=true},
+    { id = "paketo-community/rustup"},
+    { id = "paketo-community/rust-dist"},
+    { id = "paketo-community/cargo"},
+    { id = "paketo-buildpacks/procfile", optional=true},
 ]
 
 [stack]
