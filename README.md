@@ -26,9 +26,9 @@ To use: `pack build <image-name> -b docker.io/paketocommunity/rust`
 
 ### A Builder
 
-In this repo is a sample `builder.toml` that you can use to create your own builder. We do not publish a builder, so if you'd like to use this route you must first create the builder. 
+In this repo is a sample `example-builder.toml` that you can use to create your own builder. We do not publish a builder, so if you'd like to use this route you must first create the builder. 
 
-To create the builder, just run `pack builder create <published-to>/rust-builder --config builder.toml`. For example, `pack builder create paketocommunity/rust-builder --config builder.toml`.
+To create the builder, just run `pack builder create <published-to>/rust-builder --config example-builder.toml`. For example, `pack builder create paketocommunity/rust-builder --config example-builder.toml`.
 
 You can then build an app with it using `pack build <image-name> --builder <published-to>/rust-builder`.
 

@@ -102,18 +102,18 @@ jobs:
                 echo "::set-output name=old-version::${OLD_VERSION}"
                 echo "::set-output name=new-version::${NEW_VERSION}"
               env:
-                DEPENDENCY: paketocommunity/rust-dist
+                DEPENDENCY: docker.io/paketocommunity/rust-dist
             - uses: peter-evans/create-pull-request@v3
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
-                body: Bumps [`paketocommunity/rust-dist`](https://paketocommunity/rust-dist) from [`${{ steps.package.outputs.old-version }}`](https://paketocommunity/rust-dist:${{ steps.package.outputs.old-version }}) to [`${{ steps.package.outputs.new-version }}`](https://paketocommunity/rust-dist:${{ steps.package.outputs.new-version }}).
+                body: Bumps [`docker.io/paketocommunity/rust-dist`](https://docker.io/paketocommunity/rust-dist) from [`${{ steps.package.outputs.old-version }}`](https://docker.io/paketocommunity/rust-dist:${{ steps.package.outputs.old-version }}) to [`${{ steps.package.outputs.new-version }}`](https://docker.io/paketocommunity/rust-dist:${{ steps.package.outputs.new-version }}).
                 branch: update/package/rust-dist
                 commit-message: |-
-                    Bump paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
+                    Bump docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
 
-                    Bumps paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}.
+                    Bumps docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}.
                 delete-branch: true
                 labels: semver:minor, type:dependency-upgrade
                 signoff: true
-                title: Bump paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
+                title: Bump docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
                 token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

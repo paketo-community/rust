@@ -102,18 +102,18 @@ jobs:
                 echo "::set-output name=old-version::${OLD_VERSION}"
                 echo "::set-output name=new-version::${NEW_VERSION}"
               env:
-                DEPENDENCY: paketocommunity/rustup
+                DEPENDENCY: docker.io/paketocommunity/rustup
             - uses: peter-evans/create-pull-request@v3
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
-                body: Bumps [`paketocommunity/rustup`](https://paketocommunity/rustup) from [`${{ steps.package.outputs.old-version }}`](https://paketocommunity/rustup:${{ steps.package.outputs.old-version }}) to [`${{ steps.package.outputs.new-version }}`](https://paketocommunity/rustup:${{ steps.package.outputs.new-version }}).
+                body: Bumps [`docker.io/paketocommunity/rustup`](https://docker.io/paketocommunity/rustup) from [`${{ steps.package.outputs.old-version }}`](https://docker.io/paketocommunity/rustup:${{ steps.package.outputs.old-version }}) to [`${{ steps.package.outputs.new-version }}`](https://docker.io/paketocommunity/rustup:${{ steps.package.outputs.new-version }}).
                 branch: update/package/rustup
                 commit-message: |-
-                    Bump paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
+                    Bump docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
 
-                    Bumps paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}.
+                    Bumps docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}.
                 delete-branch: true
                 labels: semver:minor, type:dependency-upgrade
                 signoff: true
-                title: Bump paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
+                title: Bump docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-version }} to ${{ steps.package.outputs.new-version }}
                 token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
