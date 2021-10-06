@@ -1,26 +1,40 @@
 description = "A sample Builder for using Rust related CNBs"
 
-buildpacks = [
-  { id = "paketo-community/rustup",    uri = "docker://docker.io/paketocommunity/rustup:1.0.0" },
-  { id = "paketo-community/rust-dist", uri = "docker://docker.io/paketocommunity/rust-dist:1.1.0" },
-  { id = "paketo-community/cargo",     uri = "docker://docker.io/paketocommunity/cargo:0.0.12" },
-  { id = "paketo-buildpacks/procfile", uri = "docker://gcr.io/paketo-buildpacks/procfile:4.4.0" },
-]
+[[buildpacks]]
+  id = "paketo-community/rustup"
+  uri = "docker://docker.io/paketocommunity/rustup:1.0.0"
+
+[[buildpacks]]
+  id = "paketo-community/rust-dist"
+  uri = "docker://docker.io/paketocommunity/rust-dist:1.1.0"
+
+[[buildpacks]]
+  id = "paketo-community/cargo"
+  uri = "docker://docker.io/paketocommunity/cargo:0.0.12"
+
+[[buildpacks]]
+  id = "paketo-buildpacks/procfile"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.4.0"
 
 [[order]]
 
-group = [
-    { id = "paketo-community/rustup"},
-    { id = "paketo-community/rust-dist"},
-    { id = "paketo-community/cargo"},
-    { id = "paketo-buildpacks/procfile", optional=true},
-]
+  [[order.group]]
+    id = "paketo-community/rustup"
+
+  [[order.group]]
+    id = "paketo-community/rust-dist"
+
+  [[order.group]]
+    id = "paketo-community/cargo"
+
+  [[order.group]]
+    id = "paketo-buildpacks/procfile"
+    optional = true
 
 [stack]
-  id = "io.buildpacks.stacks.bionic"
   build-image = "gcr.io/paketo-buildpacks/build:base-cnb"
+  id = "io.buildpacks.stacks.bionic"
   run-image = "gcr.io/paketo-buildpacks/run:base-cnb"
-
 # Swap the stack if you want more packages
 # [stack]
 #   id = "io.buildpacks.stacks.bionic"
