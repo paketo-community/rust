@@ -32,6 +32,28 @@ To create the builder, just run `pack builder create <published-to>/rust-builder
 
 You can then build an app with it using `pack build <image-name> --builder <published-to>/rust-builder`.
 
+The builder is configure to use the base build and run images, which is a reasonable mix of size and functionality. You may change the build and run images to use the full stack, which has a lot more libraries and tools installed but is quite a bit larger, or you can use the tiny build and run images which presents a very small container but doesn't even contain a shell, which can make debugging difficult.
+
+To switch, swap the stack that you'd like to use in the builder file.
+
+Example full stack:
+
+```
+[stack]
+  id = "io.buildpacks.stacks.bionic"
+  build-image = "gcr.io/paketo-buildpacks/build:full-cnb-cf"
+  run-image = "gcr.io/paketo-buildpacks/run:full-cnb-cf"
+```
+
+Example tiny stack:
+
+```
+[stack]
+  id = "io.paketo.stacks.tiny"
+  build-image = "gcr.io/paketo-buildpacks/build:tiny-cnb"
+  run-image = "gcr.io/paketo-buildpacks/run:tiny-cnb"
+```
+
 ## License
 
 This buildpack is released under version 2.0 of the [Apache License][a].
