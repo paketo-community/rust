@@ -35,14 +35,3 @@ description = "A sample Builder for using Rust related CNBs"
   build-image = "gcr.io/paketo-buildpacks/build:base-cnb"
   id = "io.buildpacks.stacks.bionic"
   run-image = "gcr.io/paketo-buildpacks/run:base-cnb"
-# Swap the stack if you want more packages
-# [stack]
-#   id = "io.buildpacks.stacks.bionic"
-#   build-image = "gcr.io/paketo-buildpacks/build:full-cnb-cf"
-#   run-image = "gcr.io/paketo-buildpacks/run:full-cnb-cf"
-
-# Swap the stack if you want less packages
-# [stack]
-#   id = "io.paketo.stacks.tiny"
-#   build-image = "gcr.io/paketo-buildpacks/build:tiny-cnb"
-#   run-image = "gcr.io/paketo-buildpacks/run:tiny-cnb"
