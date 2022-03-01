@@ -10,7 +10,7 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-community/cargo"
-  uri = "docker://docker.io/paketocommunity/cargo:0.3.0"
+  uri = "docker://docker.io/paketocommunity/cargo:0.4.0"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
