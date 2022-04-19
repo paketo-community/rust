@@ -16,7 +16,7 @@ jobs:
                 password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
                 registry: docker.io
                 username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
-            - uses: actions/setup-go@v2
+            - uses: actions/setup-go@v3
               with:
                 go-version: "1.17"
             - name: Install update-package-dependency
@@ -119,7 +119,7 @@ jobs:
               env:
                 BP_DEPENDENCY: docker.io/paketo-community/rustup
                 DEPENDENCY: docker.io/paketocommunity/rustup
-            - uses: peter-evans/create-pull-request@v3
+            - uses: peter-evans/create-pull-request@v4
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
                 body: Bumps [`docker.io/paketocommunity/rustup`](https://docker.io/paketocommunity/rustup) from [`${{ steps.package.outputs.old-version }}`](https://docker.io/paketocommunity/rustup:${{ steps.package.outputs.old-version }}) to [`${{ steps.package.outputs.new-version }}`](https://docker.io/paketocommunity/rustup:${{ steps.package.outputs.new-version }}).
