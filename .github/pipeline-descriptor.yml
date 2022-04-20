@@ -1,6 +1,8 @@
 github:
   username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
   token:    ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+  mappers:
+  - '|paketocommunity|paketo-community|'
 
 codeowners:
 - path:  "*"
