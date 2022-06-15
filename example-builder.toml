@@ -9,6 +9,10 @@ description = "A sample Builder for using Rust related CNBs"
   uri = "docker://docker.io/paketocommunity/rust-dist:1.7.0"
 
 [[buildpacks]]
+  id = "paketo-buildpacks/syft"
+  uri = "docker://gcr.io/paketo-buildpacks/syft:1.11.3"
+
+[[buildpacks]]
   id = "paketo-community/cargo"
   uri = "docker://docker.io/paketocommunity/cargo:0.5.0"
 
@@ -23,6 +27,9 @@ description = "A sample Builder for using Rust related CNBs"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
+
+  [[order.group]]
+    id = "paketo-buildpacks/syft"
 
   [[order.group]]
     id = "paketo-community/cargo"
