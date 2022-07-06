@@ -16,7 +16,7 @@ You can build your app with two steps:
 1. Run `pack build <image-name> -b docker.io/paketocommunity/rust`. An image will be generated that you can run.
 2. Run the image with `docker run -it <image-name>`.
 
-y default, the Rust buildpack will add process types for all of the binary projects in your workspace. You may optionally add a [`Procfile`](https://paketo.io/docs/howto/configuration/#procfiles) though if you need to customize the start command for your container.
+By default, the Rust buildpack will add process types for all of the binary projects in your workspace. You may optionally add a [`Procfile`](https://paketo.io/docs/howto/configuration/#procfiles) though if you need to customize the start command for your container.
 
 ## What's Included
 
