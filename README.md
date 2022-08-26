@@ -24,7 +24,7 @@ By default, the Rust buildpack will add process types for all of the binary proj
 
 Included in this repo is a `buildpack.toml` that defines the Rust meta buildpack. It allows you to reference all of the Rust related CNBs in one convenient way & know that the order is set correctly.
 
-This is available throuh a pre-built docker image on [Docker Hub](https://hub.docker.com/repository/docker/paketocommunity/rust).
+This is available through a pre-built docker image on [Docker Hub](https://hub.docker.com/repository/docker/paketocommunity/rust).
 
 To use: `pack build <image-name> -b docker.io/paketocommunity/rust`
 
