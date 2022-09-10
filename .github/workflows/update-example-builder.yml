@@ -1,7 +1,7 @@
 name: Update example-builder
 "on":
     schedule:
-        - cron: 0 12-23 * * 1-5
+        - cron: 0 4 * * 4-5
     workflow_dispatch: {}
 jobs:
     update:
@@ -9,8 +9,8 @@ jobs:
         runs-on:
             - ubuntu-latest
         steps:
-            - if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
-              name: Docker login docker.io
+            - name: Docker login docker.io
+              if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
               uses: docker/login-action@v1
               with:
                 password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
@@ -18,14 +18,14 @@ jobs:
                 username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
             - uses: actions/setup-go@v2
               with:
-                go-version: "1.16"
+                go-version: "1.18"
             - name: Install update-package-dependency
               run: |
                 #!/usr/bin/env bash
 
                 set -euo pipefail
 
-                GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
+                go install -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@latest
             - name: Install crane
               run: |
                 #!/usr/bin/env bash
@@ -44,7 +44,7 @@ jobs:
                   "https://github.com/google/go-containerregistry/releases/download/v${CRANE_VERSION}/go-containerregistry_Linux_x86_64.tar.gz" \
                 | tar -C "${HOME}/bin" -xz crane
               env:
-                CRANE_VERSION: 0.5.1
+                CRANE_VERSION: 0.8.0
             - name: Install yj
               run: |
                 #!/usr/bin/env bash
@@ -66,9 +66,9 @@ jobs:
                 chmod +x "${HOME}"/bin/yj
               env:
                 YJ_VERSION: 5.0.0
-            - uses: actions/checkout@v2
-            - id: package
-              name: Update Package Dependency
+            - uses: actions/checkout@v3
+            - name: Update Package Dependency
+              id: package
               run: |
                 #!/usr/bin/env bash
 
@@ -126,7 +126,7 @@ jobs:
                 RUST_DIST_DEPENDENCY: docker.io/paketocommunity/rust-dist
                 RUSTUP_DEPENDENCY: docker.io/paketocommunity/rustup
                 PROCFILE_DEPENDENCY: gcr.io/paketo-buildpacks/procfile
-            - uses: peter-evans/create-pull-request@v3
+            - uses: peter-evans/create-pull-request@v4
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
                 body: |-
