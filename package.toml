@@ -1,6 +1,6 @@
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/rustup:1.7.0"
+  uri = "docker://docker.io/paketocommunity/rustup:1.8.1"
 
 [[dependencies]]
   uri = "docker://docker.io/paketocommunity/rust-dist:1.14.0"
