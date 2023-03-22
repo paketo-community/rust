@@ -1,5 +1,10 @@
 name: Tests
 "on":
+    merge_group:
+        types:
+            - checks_requested
+        branches:
+            - main
     pull_request: {}
     push:
         branches:
@@ -10,21 +15,7 @@ jobs:
         runs-on:
             - ubuntu-latest
         steps:
-            - name: Docker login gcr.io
-              if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
-              uses: docker/login-action@v2
-              with:
-                password: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
-                registry: gcr.io
-                username: _json_key
-            - name: Docker login docker.io
-              if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
-              uses: docker/login-action@v2
-              with:
-                password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
-                registry: docker.io
-                username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
-            - uses: actions/setup-go@v3
+            - uses: actions/setup-go@v4
               with:
                 go-version: "1.18"
             - name: Install create-package
