@@ -39,6 +39,6 @@ description = "A sample Builder for using Rust related CNBs"
     optional = true
 
 [stack]
-  build-image = "gcr.io/paketo-buildpacks/build:base-cnb"
-  id = "io.buildpacks.stacks.bionic"
-  run-image = "gcr.io/paketo-buildpacks/run:base-cnb"
+  build-image = "docker.io/paketobuildpacks/build-jammy-tiny"
+  id = "io.buildpacks.stacks.jammy.tiny"
+  run-image = "docker.io/paketobuildpacks/run-jammy-tiny"
