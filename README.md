@@ -46,6 +46,7 @@ Example full stack:
 [stack]
   id = "io.buildpacks.stacks.bionic"
   build-image = "docker.io/paketobuildpacks/build-jammy-base:latest"
+  id = "io.buildpacks.stacks.jammy"
   run-image = "docker.io/paketobuildpacks/run-jammy-base:latest"
 ```
 
