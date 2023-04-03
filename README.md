@@ -45,8 +45,9 @@ Example full stack:
 ```
 [stack]
   id = "io.buildpacks.stacks.bionic"
-  build-image = "docker.io/paketo-buildpacks/build:full-cnb-cf"
-  run-image = "docker.io/paketo-buildpacks/run:full-cnb-cf"
+  build-image = "docker.io/paketobuildpacks/build-jammy-base:latest"
+  id = "io.buildpacks.stacks.jammy"
+  run-image = "docker.io/paketobuildpacks/run-jammy-base:latest"
 ```
 
 Example tiny stack:
@@ -54,8 +55,9 @@ Example tiny stack:
 ```
 [stack]
   id = "io.paketo.stacks.tiny"
-  build-image = "docker.io/paketo-buildpacks/build:tiny-cnb"
-  run-image = "docker.io/paketo-buildpacks/run:tiny-cnb"
+  build-image = "docker.io/paketobuildpacks/build-jammy-tiny"
+  id = "io.buildpacks.stacks.jammy.tiny"
+  run-image = "docker.io/paketobuildpacks/run-jammy-tiny"
 ```
 
 ## Tips
