@@ -56,6 +56,7 @@ Example tiny stack:
 [stack]
   id = "io.paketo.stacks.tiny"
   build-image = "docker.io/paketobuildpacks/build-jammy-tiny"
+  id = "io.buildpacks.stacks.jammy.tiny"
   run-image = "docker.io/paketobuildpacks/run-jammy-tiny"
 ```
 
