@@ -1,4 +1,3 @@
-
 [[dependencies]]
   uri = "docker://docker.io/paketocommunity/rustup:1.9.1"
 
