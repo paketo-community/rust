@@ -11,4 +11,4 @@
   uri = "docker://gcr.io/paketo-buildpacks/procfile:5.6.3"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/syft:1.31.0"
+  uri = "docker://gcr.io/paketo-buildpacks/syft:1.32.0"
