@@ -19,7 +19,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-community/rustup"
-    version = "1.9.3"
+    version = "1.9.4"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
