@@ -202,7 +202,7 @@ jobs:
                     --format "${FORMAT}"
                 fi
               env:
-                PACKAGES: docker.io/paketocommunity/rust gcr.io/paketo-community/rust
+                PACKAGES: docker.io/paketocommunity/rust
                 PUBLISH: "true"
                 VERSION: ${{ steps.version.outputs.version }}
                 VERSION_MAJOR: ${{ steps.version.outputs.version-major }}
