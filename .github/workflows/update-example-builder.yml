@@ -122,16 +122,16 @@ jobs:
                 git add example-builder.toml
                 git checkout -- .
 
-                echo "::set-output name=old-cargo-version::${OLD_CARGO_VERSION}"
-                echo "::set-output name=new-cargo-version::${NEW_CARGO_VERSION}"
-                echo "::set-output name=old-rust-dist-version::${OLD_RUST_DIST_VERSION}"
-                echo "::set-output name=new-rust-dist-version::${NEW_RUST_DIST_VERSION}"
-                echo "::set-output name=old-rustup-version::${OLD_RUSTUP_VERSION}"
-                echo "::set-output name=new-rustup-version::${NEW_RUSTUP_VERSION}"
-                echo "::set-output name=old-procfile-version::${OLD_PROCFILE_VERSION}"
-                echo "::set-output name=new-procfile-version::${NEW_PROCFILE_VERSION}"
-                echo "::set-output name=old-syft-version::${OLD_SYFT_VERSION}"
-                echo "::set-output name=new-syft-version::${NEW_SYFT_VERSION}"
+                echo "old-cargo-version=${OLD_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-cargo-version=${NEW_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-rust-dist-version=${OLD_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-rust-dist-version=${NEW_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-rustup-version=${OLD_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-rustup-version=${NEW_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-procfile-version=${OLD_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-procfile-version=${NEW_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-syft-version=${OLD_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-syft-version=${NEW_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
               env:
                 CARGO_DEPENDENCY: docker.io/paketocommunity/cargo
                 RUST_DIST_DEPENDENCY: docker.io/paketocommunity/rust-dist
