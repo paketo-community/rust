@@ -11,12 +11,12 @@ jobs:
         steps:
             - name: Docker login docker.io
               if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
-              uses: docker/login-action@v1
+              uses: docker/login-action@v3
               with:
                 password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
                 registry: docker.io
                 username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
-            - uses: actions/setup-go@v2
+            - uses: actions/setup-go@v5
               with:
                 go-version: "1.18"
             - name: Install update-package-dependency
@@ -122,23 +122,23 @@ jobs:
                 git add example-builder.toml
                 git checkout -- .
 
-                echo "::set-output name=old-cargo-version::${OLD_CARGO_VERSION}"
-                echo "::set-output name=new-cargo-version::${NEW_CARGO_VERSION}"
-                echo "::set-output name=old-rust-dist-version::${OLD_RUST_DIST_VERSION}"
-                echo "::set-output name=new-rust-dist-version::${NEW_RUST_DIST_VERSION}"
-                echo "::set-output name=old-rustup-version::${OLD_RUSTUP_VERSION}"
-                echo "::set-output name=new-rustup-version::${NEW_RUSTUP_VERSION}"
-                echo "::set-output name=old-procfile-version::${OLD_PROCFILE_VERSION}"
-                echo "::set-output name=new-procfile-version::${NEW_PROCFILE_VERSION}"
-                echo "::set-output name=old-syft-version::${OLD_SYFT_VERSION}"
-                echo "::set-output name=new-syft-version::${NEW_SYFT_VERSION}"
+                echo "old-cargo-version=${OLD_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-cargo-version=${NEW_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-rust-dist-version=${OLD_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-rust-dist-version=${NEW_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-rustup-version=${OLD_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-rustup-version=${NEW_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-procfile-version=${OLD_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-procfile-version=${NEW_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "old-syft-version=${OLD_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "new-syft-version=${NEW_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
               env:
                 CARGO_DEPENDENCY: docker.io/paketocommunity/cargo
                 RUST_DIST_DEPENDENCY: docker.io/paketocommunity/rust-dist
                 RUSTUP_DEPENDENCY: docker.io/paketocommunity/rustup
-                PROCFILE_DEPENDENCY: docker.io/paketo-buildpacks/procfile
-                SYFT_DEPENDENCY: docker.io/paketo-buildpacks/syft
-            - uses: peter-evans/create-pull-request@v4
+                PROCFILE_DEPENDENCY: docker.io/paketobuildpacks/procfile
+                SYFT_DEPENDENCY: docker.io/paketobuildpacks/syft
+            - uses: peter-evans/create-pull-request@v6
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
                 body: |-
@@ -147,8 +147,8 @@ jobs:
                     - Bump [`docker.io/paketocommunity/cargo`](https://hub.docker.com/r/paketocommunity/cargo) from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
                     - Bump [`docker.io/paketocommunity/rust-dist`](https://hub.docker.com/r/paketocommunity/rust-dist) from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
                     - Bump [`docker.io/paketocommunity/rustup`](https://hub.docker.com/r/paketocommunity/rustup) from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
-                    - Bump [`docker.io/paketo-buildpacks/procfile`](https://docker.io/paketo-buildpacks/procfile) from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
-                    - Bump [`docker.io/paketo-buildpacks/syft`](https://docker.io/paketo-buildpacks/syft) from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
+                    - Bump [`docker.io/paketobuildpacks/procfile`](https://docker.io/paketobuildpacks/procfile) from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
+                    - Bump [`docker.io/paketobuildpacks/syft`](https://docker.io/paketobuildpacks/syft) from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
                 branch: update/package/builder-example
                 commit-message: |-
                     Bumps `example-builder.toml`.
@@ -156,8 +156,8 @@ jobs:
                     - Bump docker.io/paketocommunity/cargo from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
                     - Bump docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
                     - Bump docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
-                    - Bump docker.io/paketo-buildpacks/procfile from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
-                    - Bump docker.io/paketo-buildpacks/syft from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
+                    - Bump docker.io/paketobuildpacks/procfile from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
+                    - Bump docker.io/paketobuildpacks/syft from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
                 delete-branch: true
                 labels: semver:minor, type:dependency-upgrade
                 signoff: true
