@@ -11,4 +11,4 @@
   uri = "docker://docker.io/paketobuildpacks/procfile:5.6.9"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/syft:1.45.1"
+  uri = "docker://docker.io/paketobuildpacks/syft:1.46.0"
