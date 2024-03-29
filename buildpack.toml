@@ -31,7 +31,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-community/cargo"
-    version = "0.10.4"
+    version = "0.11.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
