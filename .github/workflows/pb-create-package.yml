@@ -144,12 +144,10 @@ jobs:
 
                 set -euo pipefail
 
-                CONFIG="--config "${HOME}"/package.toml"
-                #TODO with this, we don't need to use the package.toml, because pack exp. does not support it with multi arch yet
-                if ! [ -f "${PWD}/package.toml" ]; then
-                  cd ~/buildpack
-                  CONFIG=""
-                fi
+
+                cp ~/package.toml ~/buildpack/package.toml
+                cd ~/buildpack
+                CONFIG=""
 
                 PACKAGE_LIST=($PACKAGES)
                 # Extract first repo (Docker Hub) as the main to package & register
