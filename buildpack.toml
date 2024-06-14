@@ -23,7 +23,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
-    version = "1.29.0"
+    version = "1.30.0"
 
   [[order.group]]
     id = "paketo-buildpacks/syft"
