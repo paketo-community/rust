@@ -11,7 +11,7 @@
   uri = "docker://docker.io/paketobuildpacks/procfile:5.9.1"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/syft:1.47.1"
+  uri = "docker://docker.io/paketobuildpacks/syft:1.47.2"
 
 [[targets]]
   arch = "amd64"
