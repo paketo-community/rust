@@ -18,7 +18,7 @@ jobs:
                 username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
             - uses: actions/setup-go@v5
               with:
-                go-version: "1.20"
+                go-version: "1.22"
             - name: Install update-package-dependency
               run: |
                 #!/usr/bin/env bash
@@ -26,47 +26,11 @@ jobs:
                 set -euo pipefail
 
                 go install -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@latest
-            - name: Install crane
-              run: |
-                #!/usr/bin/env bash
-
-                set -euo pipefail
-
-                echo "Installing crane ${CRANE_VERSION}"
-
-                mkdir -p "${HOME}"/bin
-                echo "${HOME}/bin" >> "${GITHUB_PATH}"
-
-                curl \
-                  --show-error \
-                  --silent \
-                  --location \
-                  "https://github.com/google/go-containerregistry/releases/download/v${CRANE_VERSION}/go-containerregistry_Linux_x86_64.tar.gz" \
-                | tar -C "${HOME}/bin" -xz crane
-              env:
-                CRANE_VERSION: 0.8.0
-            - name: Install yj
-              run: |
-                #!/usr/bin/env bash
-
-                set -euo pipefail
-
-                echo "Installing yj ${YJ_VERSION}"
-
-                mkdir -p "${HOME}"/bin
-                echo "${HOME}/bin" >> "${GITHUB_PATH}"
-
-                curl \
-                  --location \
-                  --show-error \
-                  --silent \
-                  --output "${HOME}"/bin/yj \
-                  "https://github.com/sclevine/yj/releases/download/v${YJ_VERSION}/yj-linux"
-
-                chmod +x "${HOME}"/bin/yj
-              env:
-                YJ_VERSION: 5.0.0
-            - uses: actions/checkout@v3
+            - uses: buildpacks/github-actions/setup-tools@v5.6.0
+              with:
+                crane-version: 0.19.1
+                yj-version: 5.1.0
+            - uses: actions/checkout@v4
             - name: Update Package Dependency
               id: package
               run: |
