@@ -10,7 +10,7 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-buildpacks/syft"
-  uri = "docker://docker.io/paketobuildpacks/syft:2.1.0"
+  uri = "docker://docker.io/paketobuildpacks/syft:2.3.1"
 
 [[buildpacks]]
   id = "paketo-community/cargo"
@@ -18,7 +18,7 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.9.3"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.10.0"
 
 [[order]]
 
