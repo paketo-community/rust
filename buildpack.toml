@@ -27,7 +27,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/syft"
-    version = "2.1.0"
+    version = "2.3.1"
 
   [[order.group]]
     id = "paketo-community/cargo"
