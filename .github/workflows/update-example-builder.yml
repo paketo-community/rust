@@ -26,7 +26,7 @@ jobs:
                 set -euo pipefail
 
                 go install -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@latest
-            - uses: buildpacks/github-actions/setup-tools@v5.6.0
+            - uses: buildpacks/github-actions/setup-tools@v5.8.3
               with:
                 crane-version: 0.19.1
                 yj-version: 5.1.0
@@ -102,7 +102,7 @@ jobs:
                 RUSTUP_DEPENDENCY: docker.io/paketocommunity/rustup
                 PROCFILE_DEPENDENCY: docker.io/paketobuildpacks/procfile
                 SYFT_DEPENDENCY: docker.io/paketobuildpacks/syft
-            - uses: peter-evans/create-pull-request@v6
+            - uses: peter-evans/create-pull-request@v7
               with:
                 author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
                 body: |-
