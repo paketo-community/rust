@@ -6,11 +6,11 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-community/rust-dist"
-  uri = "docker://docker.io/paketocommunity/rust-dist:1.33.0"
+  uri = "docker://docker.io/paketocommunity/rust-dist:1.34.0"
 
 [[buildpacks]]
   id = "paketo-buildpacks/syft"
-  uri = "docker://docker.io/paketobuildpacks/syft:2.4.0"
+  uri = "docker://docker.io/paketobuildpacks/syft:2.5.0"
 
 [[buildpacks]]
   id = "paketo-community/cargo"
