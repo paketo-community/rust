@@ -5,7 +5,7 @@
   uri = "docker://docker.io/paketocommunity/rust-dist:1.36.1"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/cargo:0.13.0"
+  uri = "docker://docker.io/paketocommunity/cargo:0.14.0"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/procfile:5.11.0"
