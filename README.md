@@ -1,4 +1,4 @@
-# `docker.io/paketocommunity/rust`
+# `paketocommunity/rust`
 
 The Rust Cloud Native Buildpack provides a set of collaborating buildpacks that enable the building of a Rust-based application.
 
