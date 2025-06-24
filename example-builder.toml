@@ -2,23 +2,23 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-community/rustup"
-  uri = "docker://docker.io/paketocommunity/rustup:1.15.0"
+  uri = "docker://docker.io/paketocommunity/rustup:1.15.1"
 
 [[buildpacks]]
   id = "paketo-community/rust-dist"
-  uri = "docker://docker.io/paketocommunity/rust-dist:1.38.0"
+  uri = "docker://docker.io/paketocommunity/rust-dist:1.38.1"
 
 [[buildpacks]]
   id = "paketo-buildpacks/syft"
-  uri = "docker://docker.io/paketobuildpacks/syft:2.13.0"
+  uri = "docker://docker.io/paketobuildpacks/syft:2.16.1"
 
 [[buildpacks]]
   id = "paketo-community/cargo"
-  uri = "docker://docker.io/paketocommunity/cargo:0.14.0"
+  uri = "docker://docker.io/paketocommunity/cargo:0.14.1"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.11.0"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.11.2"
 
 [[order]]
 
