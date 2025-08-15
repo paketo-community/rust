@@ -10,7 +10,7 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-buildpacks/syft"
-  uri = "docker://docker.io/paketobuildpacks/syft:2.18.1"
+  uri = "docker://docker.io/paketobuildpacks/syft:2.19.0"
 
 [[buildpacks]]
   id = "paketo-community/cargo"
