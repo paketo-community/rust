@@ -8,7 +8,7 @@
   uri = "docker://docker.io/paketocommunity/cargo:0.15.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.4"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.5"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/syft:2.37.0"
