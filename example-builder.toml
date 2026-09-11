@@ -18,7 +18,7 @@ description = "A sample Builder for using Rust related CNBs"
 
 [[buildpacks]]
   id = "paketo-buildpacks/procfile"
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.7"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.14.0"
 
 [[order]]
 
