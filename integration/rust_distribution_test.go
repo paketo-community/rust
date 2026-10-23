@@ -1,0 +1,77 @@
+package integration_test
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+
+	. "github.com/onsi/gomega"
+	"github.com/paketo-buildpacks/occam"
+	. "github.com/paketo-buildpacks/occam/matchers"
+	"github.com/sclevine/spec"
+)
+
+func testRustDistribution(t *testing.T, context spec.G, it spec.S) {
+	var (
+		Expect     = NewWithT(t).Expect
+		Eventually = NewWithT(t).Eventually
+
+		pack   occam.Pack
+		docker occam.Docker
+
+		image     occam.Image
+		container occam.Container
+
+		name   string
+		source string
+	)
+
+	it.Before(func() {
+		pack = occam.NewPack()
+		docker = occam.NewDocker()
+
+		var err error
+		name, err = occam.RandomName()
+		Expect(err).NotTo(HaveOccurred())
+
+		source, err = occam.Source(filepath.Join("testdata", "simple_app"))
+		Expect(err).NotTo(HaveOccurred())
+	})
+
+	it.After(func() {
+		if container.ID != "" {
+			Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
+		}
+		Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
+		Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
+		Expect(os.RemoveAll(source)).To(Succeed())
+	})
+
+	it("uses rust-dist when rustup is disabled", func() {
+		var err error
+		var logs fmt.Stringer
+		image, logs, err = pack.WithNoColor().Build.
+			WithBuildpacks(rustBuildpack).
+			WithPullPolicy("never").
+			WithEnv(map[string]string{
+				"BP_RUSTUP_ENABLED": "false",
+				"BP_RUST_VERSION":   "1.99.1",
+			}).
+			Execute(name, source)
+		Expect(err).NotTo(HaveOccurred(), logs.String())
+
+		Expect(logs).To(ContainLines(ContainSubstring("Rust Distribution Buildpack")))
+		Expect(logs).NotTo(ContainLines(ContainSubstring("Installing Rust")))
+		Expect(logs).To(ContainLines(ContainSubstring("Rust Cargo Build Pack")))
+
+		container, err = docker.Container.Run.
+			WithEnv(map[string]string{"PORT": "8080"}).
+			WithPublish("8080").
+			Execute(image.ID)
+		Expect(err).NotTo(HaveOccurred())
+
+		Eventually(container).Should(BeAvailable())
+		Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
+	})
+}
