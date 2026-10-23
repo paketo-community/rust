@@ -1,3 +1,6 @@
+[buildpack]
+  uri = "build/buildpack.tgz"
+
 [[dependencies]]
   uri = "docker://docker.io/paketocommunity/rustup:1.17.1"
 
