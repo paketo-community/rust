@@ -1,129 +1,130 @@
+---
 name: Update example-builder
-"on":
-    schedule:
-        - cron: 0 4 * * 4-5
-    workflow_dispatch: {}
+'on':
+  schedule:
+  - cron: 0 4 * * 4-5
+  workflow_dispatch: {}
 jobs:
-    update:
-        name: Update Package Dependency
-        runs-on:
-            - ubuntu-latest
-        steps:
-            - name: Docker login docker.io
-              if: ${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}
-              uses: docker/login-action@v3
-              with:
-                password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
-                registry: docker.io
-                username: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
-            - uses: actions/setup-go@v5
-              with:
-                go-version: "1.22"
-            - name: Install update-package-dependency
-              run: |
-                #!/usr/bin/env bash
+  update:
+    name: Update Package Dependency
+    runs-on:
+    - ubuntu-latest
+    steps:
+    - name: Docker login docker.io
+      if: "${{ (github.event_name != 'pull_request' || ! github.event.pull_request.head.repo.fork) && (github.actor != 'dependabot[bot]') }}"
+      uses: docker/login-action@v3
+      with:
+        password: "${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}"
+        registry: docker.io
+        username: "${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}"
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+    - name: Install update-package-dependency
+      run: |
+        #!/usr/bin/env bash
 
-                set -euo pipefail
+        set -euo pipefail
 
-                go install -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@latest
-            - uses: buildpacks/github-actions/setup-tools@v5.8.3
-              with:
-                crane-version: 0.19.1
-                yj-version: 5.1.0
-            - uses: actions/checkout@v4
-            - name: Update Package Dependency
-              id: package
-              run: |
-                #!/usr/bin/env bash
+        go install -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@latest
+    - uses: buildpacks/github-actions/setup-tools@v5.8.3
+      with:
+        crane-version: 0.19.1
+        yj-version: 5.1.0
+    - uses: actions/checkout@v4
+    - name: Update Package Dependency
+      id: package
+      run: |
+        #!/usr/bin/env bash
 
-                set -euo pipefail
+        set -euo pipefail
 
-                # update cargo
-                NEW_CARGO_VERSION=$(crane ls "${CARGO_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
-                OLD_CARGO_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${CARGO_DEPENDENCY}:(?<version>.+)\") | .version")
+        # update cargo
+        NEW_CARGO_VERSION=$(crane ls "${CARGO_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
+        OLD_CARGO_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${CARGO_DEPENDENCY}:(?<version>.+)\") | .version")
 
-                update-package-dependency \
-                  --builder-toml example-builder.toml \
-                  --id "${CARGO_DEPENDENCY}" \
-                  --version "${NEW_CARGO_VERSION}"
+        update-package-dependency \
+          --builder-toml example-builder.toml \
+          --id "${CARGO_DEPENDENCY}" \
+          --version "${NEW_CARGO_VERSION}"
 
-                # update rust-dist
-                NEW_RUST_DIST_VERSION=$(crane ls "${RUST_DIST_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
-                OLD_RUST_DIST_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${RUST_DIST_DEPENDENCY}:(?<version>.+)\") | .version")
+        # update rust-dist
+        NEW_RUST_DIST_VERSION=$(crane ls "${RUST_DIST_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
+        OLD_RUST_DIST_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${RUST_DIST_DEPENDENCY}:(?<version>.+)\") | .version")
 
-                update-package-dependency \
-                  --builder-toml example-builder.toml \
-                  --id "${RUST_DIST_DEPENDENCY}" \
-                  --version "${NEW_RUST_DIST_VERSION}"
+        update-package-dependency \
+          --builder-toml example-builder.toml \
+          --id "${RUST_DIST_DEPENDENCY}" \
+          --version "${NEW_RUST_DIST_VERSION}"
 
-                # update rustup
-                NEW_RUSTUP_VERSION=$(crane ls "${RUSTUP_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
-                OLD_RUSTUP_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${RUSTUP_DEPENDENCY}:(?<version>.+)\") | .version")
+        # update rustup
+        NEW_RUSTUP_VERSION=$(crane ls "${RUSTUP_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
+        OLD_RUSTUP_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${RUSTUP_DEPENDENCY}:(?<version>.+)\") | .version")
 
-                update-package-dependency \
-                  --builder-toml example-builder.toml \
-                  --id "${RUSTUP_DEPENDENCY}" \
-                  --version "${NEW_RUSTUP_VERSION}"
+        update-package-dependency \
+          --builder-toml example-builder.toml \
+          --id "${RUSTUP_DEPENDENCY}" \
+          --version "${NEW_RUSTUP_VERSION}"
 
-                # update procfile
-                NEW_PROCFILE_VERSION=$(crane ls "${PROCFILE_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
-                OLD_PROCFILE_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${PROCFILE_DEPENDENCY}:(?<version>.+)\") | .version")
+        # update procfile
+        NEW_PROCFILE_VERSION=$(crane ls "${PROCFILE_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
+        OLD_PROCFILE_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${PROCFILE_DEPENDENCY}:(?<version>.+)\") | .version")
 
-                update-package-dependency \
-                  --builder-toml example-builder.toml \
-                  --id "${PROCFILE_DEPENDENCY}" \
-                  --version "${NEW_PROCFILE_VERSION}"
+        update-package-dependency \
+          --builder-toml example-builder.toml \
+          --id "${PROCFILE_DEPENDENCY}" \
+          --version "${NEW_PROCFILE_VERSION}"
 
-                # update syft
-                NEW_SYFT_VERSION=$(crane ls "${SYFT_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
-                OLD_SYFT_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${SYFT_DEPENDENCY}:(?<version>.+)\") | .version")
+        # update syft
+        NEW_SYFT_VERSION=$(crane ls "${SYFT_DEPENDENCY}" | grep -v latest | sort -V | tail -n 1)
+        OLD_SYFT_VERSION=$(yj -tj < example-builder.toml | jq -r ".buildpacks[].uri | capture(\".*${SYFT_DEPENDENCY}:(?<version>.+)\") | .version")
 
-                update-package-dependency \
-                  --builder-toml example-builder.toml \
-                  --id "${SYFT_DEPENDENCY}" \
-                  --version "${NEW_SYFT_VERSION}"
+        update-package-dependency \
+          --builder-toml example-builder.toml \
+          --id "${SYFT_DEPENDENCY}" \
+          --version "${NEW_SYFT_VERSION}"
 
-                git add example-builder.toml
-                git checkout -- .
+        git add example-builder.toml
+        git checkout -- .
 
-                echo "old-cargo-version=${OLD_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "new-cargo-version=${NEW_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "old-rust-dist-version=${OLD_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "new-rust-dist-version=${NEW_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "old-rustup-version=${OLD_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "new-rustup-version=${NEW_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "old-procfile-version=${OLD_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "new-procfile-version=${NEW_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "old-syft-version=${OLD_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
-                echo "new-syft-version=${NEW_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
-              env:
-                CARGO_DEPENDENCY: docker.io/paketocommunity/cargo
-                RUST_DIST_DEPENDENCY: docker.io/paketocommunity/rust-dist
-                RUSTUP_DEPENDENCY: docker.io/paketocommunity/rustup
-                PROCFILE_DEPENDENCY: docker.io/paketobuildpacks/procfile
-                SYFT_DEPENDENCY: docker.io/paketobuildpacks/syft
-            - uses: peter-evans/create-pull-request@v7
-              with:
-                author: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>
-                body: |-
-                    Bumps `example-builder.toml`.
+        echo "old-cargo-version=${OLD_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "new-cargo-version=${NEW_CARGO_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "old-rust-dist-version=${OLD_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "new-rust-dist-version=${NEW_RUST_DIST_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "old-rustup-version=${OLD_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "new-rustup-version=${NEW_RUSTUP_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "old-procfile-version=${OLD_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "new-procfile-version=${NEW_PROCFILE_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "old-syft-version=${OLD_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "new-syft-version=${NEW_SYFT_VERSION}" >> "$GITHUB_OUTPUT"
+      env:
+        CARGO_DEPENDENCY: docker.io/paketocommunity/cargo
+        RUST_DIST_DEPENDENCY: docker.io/paketocommunity/rust-dist
+        RUSTUP_DEPENDENCY: docker.io/paketocommunity/rustup
+        PROCFILE_DEPENDENCY: docker.io/paketobuildpacks/procfile
+        SYFT_DEPENDENCY: docker.io/paketobuildpacks/syft
+    - uses: peter-evans/create-pull-request@v7
+      with:
+        author: "${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }} <${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}@users.noreply.github.com>"
+        body: |-
+          Bumps `example-builder.toml`.
 
-                    - Bump [`docker.io/paketocommunity/cargo`](https://hub.docker.com/r/paketocommunity/cargo) from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
-                    - Bump [`docker.io/paketocommunity/rust-dist`](https://hub.docker.com/r/paketocommunity/rust-dist) from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
-                    - Bump [`docker.io/paketocommunity/rustup`](https://hub.docker.com/r/paketocommunity/rustup) from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
-                    - Bump [`docker.io/paketobuildpacks/procfile`](https://docker.io/paketobuildpacks/procfile) from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
-                    - Bump [`docker.io/paketobuildpacks/syft`](https://docker.io/paketobuildpacks/syft) from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
-                branch: update/package/builder-example
-                commit-message: |-
-                    Bumps `example-builder.toml`.
+          - Bump [`docker.io/paketocommunity/cargo`](https://hub.docker.com/r/paketocommunity/cargo) from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
+          - Bump [`docker.io/paketocommunity/rust-dist`](https://hub.docker.com/r/paketocommunity/rust-dist) from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
+          - Bump [`docker.io/paketocommunity/rustup`](https://hub.docker.com/r/paketocommunity/rustup) from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
+          - Bump [`docker.io/paketobuildpacks/procfile`](https://docker.io/paketobuildpacks/procfile) from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
+          - Bump [`docker.io/paketobuildpacks/syft`](https://docker.io/paketobuildpacks/syft) from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
+        branch: update/package/builder-example
+        commit-message: |-
+          Bumps `example-builder.toml`.
 
-                    - Bump docker.io/paketocommunity/cargo from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
-                    - Bump docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
-                    - Bump docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
-                    - Bump docker.io/paketobuildpacks/procfile from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
-                    - Bump docker.io/paketobuildpacks/syft from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
-                delete-branch: true
-                labels: semver:minor, type:dependency-upgrade
-                signoff: true
-                title: Bump docker.io/paketocommunity/cargo Builder
-                token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+          - Bump docker.io/paketocommunity/cargo from ${{ steps.package.outputs.old-cargo-version }} to ${{ steps.package.outputs.new-cargo-version }}
+          - Bump docker.io/paketocommunity/rust-dist from ${{ steps.package.outputs.old-rust-dist-version }} to ${{ steps.package.outputs.new-rust-dist-version }}
+          - Bump docker.io/paketocommunity/rustup from ${{ steps.package.outputs.old-rustup-version }} to ${{ steps.package.outputs.new-rustup-version }}
+          - Bump docker.io/paketobuildpacks/procfile from ${{ steps.package.outputs.old-procfile-version }} to ${{ steps.package.outputs.new-procfile-version }}
+          - Bump docker.io/paketobuildpacks/syft from ${{ steps.package.outputs.old-syft-version }} to ${{ steps.package.outputs.new-syft-version }}
+        delete-branch: true
+        labels: semver:minor
+        signoff: true
+        title: Bump docker.io/paketocommunity/cargo Builder
+        token: "${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}"
