@@ -19,21 +19,21 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-community/rustup"
-    version = "1.17.2"
+    version = "1.17.3"
 
   [[order.group]]
     id = "paketo-community/rust-dist"
-    version = "1.51.0"
+    version = "1.51.1"
 
   [[order.group]]
     id = "paketo-buildpacks/syft"
-    version = "2.43.3"
+    version = "2.43.4"
 
   [[order.group]]
     id = "paketo-community/cargo"
-    version = "0.16.1"
+    version = "0.16.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.15.5"
+    version = "5.15.6"
