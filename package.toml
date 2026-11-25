@@ -3,19 +3,19 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/rustup:1.17.6"
+  uri = "docker://docker.io/paketocommunity/rustup:1.17.7"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/rust-dist:1.51.4"
+  uri = "docker://docker.io/paketocommunity/rust-dist:1.51.5"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketocommunity/cargo:0.16.5"
+  uri = "docker://docker.io/paketocommunity/cargo:0.16.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.15.9"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.15.10"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/syft:2.44.1"
+  uri = "docker://docker.io/paketobuildpacks/syft:2.44.2"
 
 [[targets]]
   arch = "amd64"
